@@ -1,20 +1,8 @@
-WhatIHave.service('productModel', function() {
+WhatIHave.service('productModel', function($http) {
     this.getProducts = function() {
-        return [{
-            id: 5,
-            name: 'Product1'
-        }, {
-            id: 1,
-            name: 'One More'
-        }, {
-            id: 2,
-            name: 'Another'
-        }, {
-            id: 3,
-            name: 'This is a product'
-        }, {
-            id: 4,
-            name: 'Why not'
-        }
-        ]};
+
+        return $http({method:"GET", url:appBackAddress+"/product/"}).then(function(result){
+            return result.data;
+        });
+    };
 });
