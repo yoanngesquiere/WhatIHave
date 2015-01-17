@@ -2,11 +2,11 @@ var wihConfig = function($routeProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             controller: 'productController',
-            templateUrl: 'view/product.html'
+            templateUrl: 'app/product/product.html'
         })
         .when('/product/:productId', {
             controller: 'productController',
-            templateUrl: 'view/product.html'
+            templateUrl: 'app/product/product.html'
         })
 
     ;
@@ -15,4 +15,4 @@ var wihConfig = function($routeProvider, $httpProvider) {
 };
 var WhatIHave = angular.module('WhatIHave', ["ngRoute", "ngResource", "ngSanitize"]).
     config(wihConfig);
-var appBackAddress = "http://172.17.0.5:3000";
+var appBackAddress = "http://172.17.0.9:3000";
