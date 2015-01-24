@@ -2,6 +2,10 @@
     "name": "WhatIHave",
     "version": "1.0.0",
     "dependencies": {
-        "bootstrap": "3.3.2"
+        "bootstrap": "~3.3.2",
+        "angular": "~1.3",
+        "angular-route": "~1.3",
+        "angular-resource": "~1.3",
+        "angular-sanitize": "~1.3"
     }
 }
