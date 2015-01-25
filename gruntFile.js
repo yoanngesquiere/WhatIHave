@@ -13,8 +13,8 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+                src: 'dist/<%= pkg.name %>.js',
+                dest: 'dist/<%= pkg.name %>.min.js'
             }
         },
         clean: ['<%= distdir %>/*'],
@@ -30,12 +30,11 @@ module.exports = function(grunt) {
     });
 
     // Load the plugin that provides the "uglify" task.
-    //grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task(s).
-    //grunt.registerTask('default', ['uglify']);
-    grunt.registerTask('default', ['clean','concat']);
+    grunt.registerTask('default', ['clean','concat', 'uglify']);
 
 };
