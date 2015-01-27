@@ -5,7 +5,14 @@ module.exports = function(grunt) {
         distdir: 'dist',
         src: {
             js: ['src/**/*.js'],
-            html: ['src/index.html']
+            jsTpl: ['<%= distdir %>/templates/**/*.js'],
+            html: ['src/index.html'],
+            bootstrap: {
+                css: ['bower_components/bootstrap/dist/css/bootstrap.min.css', 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css']
+            },
+            tpl: {
+                app: ['src/app/**/*.tpl.html']
+            }
         },
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
@@ -13,8 +20,8 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'dist/<%= pkg.name %>.js',
-                dest: 'dist/<%= pkg.name %>.min.js'
+                src: ['<%= src.html %>'],
+                dest: 'dist/<%= pkg.name %>.js'
             }
         },
         clean: ['<%= distdir %>/*'],
@@ -23,8 +30,29 @@ module.exports = function(grunt) {
                 options: {
                     banner: "<%= banner %>"
                 },
-                src: ['<%= src.js %>'],
+                src:['<%= src.js %>', '<%= src.jsTpl %>'],
                 dest: '<%= distdir %>/<%= pkg.name %>.js'
+            },
+            index: {
+                src: ['<%= src.html %>'],
+                dest: '<%= distdir %>/index.html',
+                options: {
+                    process: true
+                }
+            },
+            bootstrap: {
+                src: ['<%= src.bootstrap.css %>'],
+                dest: '<%= distdir %>/css/bootstrap.css'
+            }
+        },
+        html2js: {
+            app: {
+                options: {
+                    base: 'src/app'
+                },
+                src: ['<%= src.tpl.app %>'],
+                dest: '<%= distdir %>/templates/app.js',
+                module: 'templates.app'
             }
         }
     });
@@ -33,8 +61,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-html2js');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean','concat', 'uglify']);
+    grunt.registerTask('default', ['clean','html2js', 'concat']);
+    grunt.registerTask('release', ['clean','html2js', 'concat:index', 'concat:bootstrap', 'uglify']);
 
 };
