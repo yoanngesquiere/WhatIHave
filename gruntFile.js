@@ -10,6 +10,8 @@ module.exports = function(grunt) {
             bootstrap: {
                 css: ['bower_components/bootstrap/dist/css/bootstrap.min.css', 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css']
             },
+            angular: ['bower_components/angular/angular.js', 'bower_components/angular-route/angular-route.js',
+                'bower_components/angular-resource/angular-resource.js', 'bower_components/angular-sanitize/angular-sanitize.js'],
             tpl: {
                 app: ['src/app/**/*.tpl.html']
             }
@@ -43,6 +45,10 @@ module.exports = function(grunt) {
             bootstrap: {
                 src: ['<%= src.bootstrap.css %>'],
                 dest: '<%= distdir %>/css/bootstrap.css'
+            },
+            angular: {
+                src: ['<%= src.angular %>'],
+                dest: '<%= distdir %>/js/angular.js'
             }
         },
         html2js: {
